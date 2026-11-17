@@ -14,18 +14,33 @@ export default function StarTrail() {
     if (sinMovimiento || !conMouse) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const estilos = getComputedStyle(document.documentElement);
-    const colores = ['--aurora-rosa', '--aurora-violeta', '--aurora-turquesa', '--texto-claro'].map((v) =>
-      estilos.getPropertyValue(v).trim()
-    );
+    // desynchronized: Chrome pinta el canvas sin esperar al resto de la página → estrellas más pegadas al mouse
+    const ctx = canvas.getContext('2d', { desynchronized: true });
+    // Los colores se leen de variables.css. Safari a veces todavía no los tiene listos al arrancar
+    // y el canvas pinta en negro: por eso se leen al crear cada estrella y hay un color de respaldo.
+    const paleta = [
+      ['--aurora-rosa', '#FF7EB6'],
+      ['--aurora-violeta', '#9B7BFF'],
+      ['--aurora-turquesa', '#5EEAD4'],
+      ['--texto-claro', '#F4F1FF'],
+    ];
+    let colores = null;
+    const obtenerColores = () => {
+      if (colores) return colores;
+      const estilos = getComputedStyle(document.documentElement);
+      const leidos = paleta.map(([variable]) => estilos.getPropertyValue(variable).trim());
+      // Si el CSS todavía no cargó, usamos el respaldo y volvemos a intentar en la próxima estrella
+      if (leidos.every(Boolean)) colores = leidos;
+      return colores || paleta.map(([, respaldo]) => respaldo);
+    };
 
     const estrellas = [];
     let ultimo = { x: -999, y: -999 };
     let cuadro = null;
+    let tiempoAnterior = 0;
 
     const ajustarTamano = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // 1.5 alcanza para estrellas chiquitas y pesa mucho menos
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -46,19 +61,23 @@ export default function StarTrail() {
       ctx.restore();
     };
 
-    const animar = () => {
+    // Todo se mueve según el TIEMPO que pasó, no por cuadro: así la estela va a la misma
+    // velocidad en una compu que dibuja 60, 120 o 30 cuadros por segundo.
+    const animar = (ahora = performance.now()) => {
+      const paso = tiempoAnterior ? Math.min((ahora - tiempoAnterior) / 16.67, 3) : 1; // 1 = un cuadro a 60 fps
+      tiempoAnterior = ahora;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = estrellas.length - 1; i >= 0; i--) {
         const e = estrellas[i];
-        e.vida -= 0.02;
+        e.vida -= 0.02 * paso;
         if (e.vida <= 0) {
           estrellas.splice(i, 1);
           continue;
         }
-        e.x += e.vx;
-        e.y += e.vy;
-        e.vy += 0.015; // caen suave
-        e.rotacion += e.giro;
+        e.x += e.vx * paso;
+        e.y += e.vy * paso;
+        e.vy += 0.015 * paso; // caen suave
+        e.rotacion += e.giro * paso;
         const radio = e.tamano * (0.4 + e.vida * 0.6);
         ctx.fillStyle = e.color;
         ctx.globalAlpha = e.vida * 0.25; // halo
@@ -70,6 +89,7 @@ export default function StarTrail() {
         cuadro = requestAnimationFrame(animar);
       } else {
         cuadro = null;
+        tiempoAnterior = 0;
         canvas.classList.remove('estela-estrellas--activa'); // en reposo no consume nada
       }
     };
@@ -88,11 +108,11 @@ export default function StarTrail() {
         rotacion: Math.random() * Math.PI,
         giro: (Math.random() - 0.5) * 0.1,
         vida: 1,
-        color: colores[Math.floor(Math.random() * colores.length)],
+        color: (() => { const c = obtenerColores(); return c[Math.floor(Math.random() * c.length)]; })(),
       });
       if (!cuadro) {
         canvas.classList.add('estela-estrellas--activa');
-        cuadro = requestAnimationFrame(animar);
+        animar(); // primer cuadro inmediato
       }
     };
 
