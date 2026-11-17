@@ -1,0 +1,26 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--vidrio-borde);
+  background: var(--vidrio);
+  color: var(--texto-claro);
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: transform var(--duracion-media) var(--curva-rebote), border-color var(--duracion-rapida);
+}
+
+.chip__punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tinte);
+  box-shadow: 0 0 10px var(--tinte);
+}
+
+.chip:hover {
+  transform: translate3d(0, -2px, 0);
+  border-color: var(--tinte);
+}

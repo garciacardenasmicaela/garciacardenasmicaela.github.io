@@ -1,0 +1,10 @@
+.revelar {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.8s var(--curva-suave), transform 0.8s var(--curva-suave);
+}
+
+.revelar--visible {
+  opacity: 1;
+  transform: none;
+}

@@ -1,0 +1,36 @@
+.panel.contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  overflow: hidden;
+}
+
+/* Brillo de aurora dentro del panel */
+.panel.contacto::after {
+  content: '';
+  position: absolute;
+  inset: auto -10% -60% -10%;
+  height: 120%;
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 126, 182, 0.3), rgba(155, 123, 255, 0.15) 50%, transparent 75%);
+  pointer-events: none;
+}
+
+.contacto__titulo {
+  margin: 16px 0 10px;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+}
+
+.contacto__texto {
+  margin-bottom: 26px;
+  color: var(--texto-suave);
+}
+
+.contacto__botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

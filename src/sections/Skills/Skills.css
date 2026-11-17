@@ -1,0 +1,13 @@
+.habilidades {
+  display: grid;
+  gap: 18px;
+}
+
+.habilidades__herramientas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vidrio-borde);
+}

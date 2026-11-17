@@ -1,0 +1,61 @@
+/* ==========================================================
+   Paleta "Aurora" de Micaela — usá SIEMPRE estas variables
+   ========================================================== */
+:root {
+  /* Fondos */
+  --noche-profunda: #0B0D1F;
+  --noche-indigo: #14173A;
+
+  /* Auroras (acentos) */
+  --aurora-rosa: #FF7EB6;
+  --aurora-violeta: #9B7BFF;
+  --aurora-turquesa: #5EEAD4;
+  --aurora-durazno: #FFB38A;
+
+  /* Texto */
+  --texto-claro: #F4F1FF;
+  --texto-suave: #B7B4D8;
+  --texto-tenue: #7D7AA3;
+
+  /* Vidrio (glassmorphism) */
+  --vidrio: rgba(255, 255, 255, 0.06);
+  --vidrio-fuerte: rgba(255, 255, 255, 0.1);
+  --vidrio-borde: rgba(255, 255, 255, 0.14);
+  --vidrio-brillo: rgba(255, 255, 255, 0.22);
+  --vidrio-desenfoque: blur(18px) saturate(140%);
+
+  /* Degradados de marca */
+  --degradado-marca: linear-gradient(120deg, var(--aurora-rosa), var(--aurora-violeta) 55%, var(--aurora-turquesa));
+  --degradado-boton: linear-gradient(120deg, var(--aurora-rosa), var(--aurora-violeta));
+
+  /* Logo (se mantiene igual) */
+  --rosa-algodon: #FFD6E8;
+  --rosa-chicle: #F6B6D1;
+  --rosa-frutilla: #E987B3;
+  --rosa-frambuesa: #C9679A;
+  --blanco-nube: #FFFFFF;
+  --logo-contorno: #1F1A45;
+
+  /* Tipografías */
+  --fuente-titulos: 'Sora', system-ui, sans-serif;
+  --fuente-texto: 'Inter', system-ui, sans-serif;
+
+  /* Radios */
+  --radio-chico: 10px;
+  --radio-medio: 16px;
+  --radio-grande: 24px;
+
+  /* Sombras */
+  --sombra-vidrio: inset 0 1px 0 var(--vidrio-brillo), 0 24px 60px rgba(4, 5, 18, 0.5);
+  --sombra-brillo-rosa: 0 10px 40px rgba(255, 126, 182, 0.35);
+
+  /* Movimiento */
+  --curva-suave: cubic-bezier(0.22, 1, 0.36, 1);
+  --curva-rebote: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duracion-rapida: 0.25s;
+  --duracion-media: 0.45s;
+
+  /* Espaciado */
+  --ancho-max: 1120px;
+  --margen-lateral: 16px;
+}

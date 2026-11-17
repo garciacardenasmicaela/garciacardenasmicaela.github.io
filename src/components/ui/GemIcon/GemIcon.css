@@ -1,0 +1,13 @@
+.gema {
+  display: block;
+  height: auto;
+  filter: drop-shadow(0 4px 10px rgba(255, 126, 182, 0.35));
+}
+
+/* Capa propia de GPU: el brillo se dibuja una sola vez */
+.gema--flotar {
+  animation: flotar 5s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 20px 40px rgba(255, 126, 182, 0.45));
+}

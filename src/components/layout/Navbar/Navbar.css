@@ -1,0 +1,73 @@
+.navbar {
+  position: sticky;
+  top: 14px;
+  z-index: 20;
+  margin-top: 14px;
+}
+
+.navbar__barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 999px;
+  background: rgba(20, 23, 58, 0.55);
+}
+
+.navbar__marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+}
+
+.navbar__pestanas {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+
+.navbar__pestana {
+  position: relative;
+  display: block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--texto-suave);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color var(--duracion-rapida), background-color var(--duracion-rapida);
+}
+
+.navbar__pestana:hover {
+  color: var(--texto-claro);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar__estado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 234, 212, 0.35);
+  background: rgba(94, 234, 212, 0.1);
+  color: var(--aurora-turquesa);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Punto con brillo fijo: animar algo dentro del vidrio obliga a re-desenfocar toda la barra */
+.navbar__punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--aurora-turquesa);
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.18), 0 0 10px var(--aurora-turquesa);
+}
+
+@media (max-width: 860px) {
+  .navbar__pestanas { display: none; }
+}
